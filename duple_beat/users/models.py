@@ -42,7 +42,7 @@ class Manager(BaseUserManager):
 class User(AbstractBaseUser):
 
 
-    #main
+    # main
     name = models.CharField(max_length=60, blank=True, null=True)
     email = models.EmailField(max_length=60, unique=True) #verbose_name="email"
     username = models.CharField(max_length=60, unique=True)
