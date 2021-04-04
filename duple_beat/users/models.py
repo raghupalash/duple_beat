@@ -1,5 +1,15 @@
+
+#django imports
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+#internal imports
+from .labels import *
+from .validators import *
 
 # Create your models here.
 class Manager(BaseUserManager):
@@ -30,9 +40,25 @@ class Manager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
+
+
+    #main
+    name = models.CharField(max_length=60, blank=True, null=True)
     email = models.EmailField(max_length=60, unique=True) #verbose_name="email"
     username = models.CharField(max_length=60, unique=True)
-    # image = models.ImageField(default="default-profile.png", upload_to="profile_pics",blank=True)
+    image = models.ImageField(default="default-profile.png", upload_to="profile_pics", blank=True)
+    
+    # contact info
+    phones = models.JSONField(default=list, null=True, blank=True)
+    website = models.URLField(blank=True, null=True)
+    about = models.CharField(max_length=280, blank=True, null=True)
+    
+
+    # additional info
+    genre = models.ManyToManyField(Genre, related_name='users')
+    job = models.ManyToManyField(Job, blank=True, related_name="users")
+    instrument = models.ManyToManyField(Instrument, blank=True, related_name="users")
+    budget = models.JSONField(default=list, validators=[validate_budget])
 
     # REQUIRED
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -61,3 +87,10 @@ class User(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+#Sets default job name for user when created or when user deletes job.
+def SetDefaultName(sender, instance, created, **kwargs):
+    if created or not instance.job.all():
+        job = Job.objects.get_or_create(job = "Artist")[0]
+        instance.job.add(job)
+post_save.connect(SetDefaultName, sender=User)
