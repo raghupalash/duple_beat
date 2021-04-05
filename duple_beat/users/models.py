@@ -7,6 +7,9 @@ from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+#third party imports 
+# from django_resized import ResizedImageField
+
 #internal imports
 from .labels import *
 from .validators import *

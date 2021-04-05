@@ -1,0 +1,28 @@
+/* Sets the width of drawer container */
+.drawer{
+    width: 30% !important;
+}
+
+.row{
+    height: 50%;
+}
+/* In order to get rid of bullet points in list of itens - drawer */
+.menulist li{
+    list-style-type: none;
+}
+
+
+/* 
+Not necessary anymore
+.drawerupbody{
+    display: flex;
+    align-items: left;
+    justify-content: left;
+} */
+
+/* Sets display of drawer to none when screen width is less than 1024px */
+@media screen and (max-width: 1024px) {
+ .drawer{
+     display: none !important;
+ }   
+}
