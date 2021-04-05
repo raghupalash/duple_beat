@@ -88,7 +88,7 @@ class User(AbstractBaseUser):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-#Sets default job name for user when created or when user deletes job.
+#Sets default job name for user when created or when user deletes job
 def SetDefaultName(sender, instance, created, **kwargs):
     if created or not instance.job.all():
         job = Job.objects.get_or_create(job = "Artist")[0]
