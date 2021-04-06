@@ -52,7 +52,8 @@
                         <h6 class="mb-0">Address</h6>
                       </div>
                       <div class="col-sm-9 text-secondary">
-                        Middle of nowhere
+                        {{ user.address }}
+                        <a href="{% url 'users:user_location' user.id %}">Change Location</a>
                       </div>
                     </div>
                   </div>

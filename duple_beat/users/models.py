@@ -1,11 +1,13 @@
 #django imports
 
-from django.db import models
+# from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from django.contrib.gis.db import models
 
 #third party imports 
 # from django_resized import ResizedImageField
@@ -56,7 +58,9 @@ class User(AbstractBaseUser):
     phones = models.JSONField(default=list, null=True, blank=True)
     website = models.URLField(blank=True, null=True)
     about = models.CharField(max_length=280, blank=True, null=True)
-    
+    location = models.PointField(blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+
 
     # additional info
     genre = models.ManyToManyField(Genre, related_name='users')
