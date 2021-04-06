@@ -9,6 +9,7 @@ from django.dispatch import receiver
 
 #third party imports 
 # from django_resized import ResizedImageField
+from PIL import Image
 
 #internal imports
 from .labels import *
@@ -90,6 +91,26 @@ class User(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+        if self.image:
+            img = Image.open(self.image.path)
+
+            if img.height != img.width:
+                size = abs(img.height - img.width) // 2
+
+                if img.height > img.width:
+                    area = (0, size, (img.height - (2 * size)), img.height - size)
+                    
+                else:
+                    area = (size, 0, img.width - size, (img.width - (2 * size)))
+                
+                crop = img.crop(area)
+                crop.save(self.image.path)
+            
+            if self.image.size > 5485760: # 5MB
+                self.image.delete()
+                self.image = 'default-profile.png'
+                self.save()
 
 #Sets default job name for user when created or when user deletes job
 def SetDefaultName(sender, instance, created, **kwargs):
