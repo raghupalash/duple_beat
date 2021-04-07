@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
 
 {% block head %}
+
+    {% leaflet_js plugins="forms" %}
+    {% leaflet_css plugins="forms" %}
+
+    {{ form.media }}
+
 {% endblock %}
 
 {% block title %}
@@ -17,7 +25,7 @@
     <br>
 
     <div>
-        <form style="width: 45%; text-align: center; float: left;" action="{% url 'users:user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <form style="text-align: center;" action="{% url 'users:user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
             {% csrf_token %}
     
             <lable style="font-weight: bold;">Address / Place Name:</lable>
@@ -28,27 +36,30 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
-        <div style="width: 50%; float: right;">
+        <br>
+
+        <div>
             <div style="width: 50%; float: left;">
                 <h5>Your current location:</h5>
                     {{ user.address }}
             </div>
             <div style="width: 50%; float: right;">
                 <h5>Your searched location:</h5>
-                    {{ search_address }}
-
-                <br>
+                    <h6 style="color: steelblue;">{{ search_address }}</h6>
 
                 {% if search_address %}
-                    <form style="width: 45%; text-align: center; float: left;" action="{% url 'users:set_user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data" id="distance_form">
+                    <form style="text-align: center;" action="{% url 'users:set_user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data" id="distance_form">
                         {% csrf_token %}
                         <input type="text" value="{{ search }}" name="search" hidden> <br>
                         <button type="submit" class="btn btn-primary">Set this location</button>
                     </form>
                 {% endif %}
+
+                <br>
             </div>
         </div>
 
+        <br>
         <br>
     
     </div>
@@ -69,6 +80,8 @@
         {{ map | safe }}
         <!-- the safe filter allows to display the map -->
     </div>
+
+    <!-- {{ form | crispy }} -->
     
 
 

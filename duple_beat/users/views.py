@@ -14,6 +14,8 @@ from geopy.distance import geodesic
 
 # internal imports
 from .models import *
+from .labels import *
+from .forms import *
 
 # Create your views here.
 
@@ -54,9 +56,17 @@ def user_location(request, user_id, *args, **kwargs):
         
         geolocator = Nominatim(user_agent="users")
 
-        search = str(request.POST["address"])
+        search = str(request.POST["address"]).strip().replace(',', '')
 
         location = geolocator.geocode(search)
+
+        while not location:
+
+            search = " ".join(search.split()[:len(search.split()) - 1])
+            location = geolocator.geocode(search)
+
+            if not search:
+                break
 
         if location:
 
@@ -64,8 +74,8 @@ def user_location(request, user_id, *args, **kwargs):
 
             m = folium.Map(
 
-                width = 630,
-                height = 389,
+                width = 800,
+                height = 500,
                 location = (location.latitude, location.longitude),
                 zoom_start = 16,
 
@@ -96,6 +106,7 @@ def user_location(request, user_id, *args, **kwargs):
         'message': message,
         'search_address': search_address,
         'search': search,
+        'form': MyGeoForm(request.POST or None),
 
     })
 
