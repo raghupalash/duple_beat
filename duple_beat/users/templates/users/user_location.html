@@ -41,14 +41,14 @@
         <div>
             <div style="width: 50%; float: left;">
                 <h5>Your current location:</h5>
-                    {{ user.address }}
+                    {{ user.address|default_if_none:"" }}
             </div>
             <div style="width: 50%; float: right;">
                 <h5>Your searched location:</h5>
-                    <h6 style="color: steelblue;">{{ search_address }}</h6>
+                    <h6 style="color: steelblue;">{{ search_address|default_if_none:"" }}</h6>
 
                 {% if search_address %}
-                    <form style="text-align: center;" action="{% url 'users:set_user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data" id="distance_form">
+                    <form style="text-align: center;" action="{% url 'users:set_user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input type="text" value="{{ search }}" name="search" hidden> <br>
                         <button type="submit" class="btn btn-primary">Set this location</button>
@@ -73,15 +73,24 @@
     <br>
 
     <div>
-        {% if message %}
-            <span style="color: crimson; font-weight: bold;">{{ message }}</span>
-        {% endif %}
 
-        {{ map | safe }}
+        <span style="color: crimson; font-weight: bold;">{{ message|default_if_none:"" }}</span>
+
+        <!-- {{ map | safe }} -->
         <!-- the safe filter allows to display the map -->
+
+        <form style="text-align: center;" action="{% url 'users:set_user_map_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Set this map location</button>
+            <br> <br>
+            {{ form | crispy }}
+
+           
+        </form>
+            
+    
     </div>
 
-    <!-- {{ form | crispy }} -->
     
 
 

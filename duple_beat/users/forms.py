@@ -1,24 +1,22 @@
-# from django.contrib.gis import forms
-from django import forms
-
+from django.contrib.gis import forms
+from leaflet.forms.fields import PointField
 from leaflet.forms.widgets import LeafletWidget
+
 from .models import *
 
+LEAFLET_WIDGET_ATTRS = {
+    'map_height': '600px',
+    'map_width': '100%',
+    # 'display_raw': 'false',
+    'map_srid': 4326,
+}
 
-# class MyGeoForm(forms.Form):
+class LocationForm(forms.ModelForm):
+    required_css_class = 'required'
 
-#     point = forms.PointField(
-#         widget=forms.OSMWidget(
-#             attrs={
-#                 'map_width': 800, 
-#                 'map_height': 500
-#             }
-#         )
-#     )
-
-class MyGeoForm(forms.ModelForm):
+    location = forms.PointField(
+        widget=LeafletWidget(attrs=LEAFLET_WIDGET_ATTRS), label='')
 
     class Meta:
         model = User
         fields = ('location',)
-        widgets = {'location_point': LeafletWidget()}

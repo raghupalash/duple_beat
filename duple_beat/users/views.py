@@ -28,7 +28,7 @@ def user_detail_view(request, user_id, *args, **kwargs):
 
 def user_location(request, user_id, *args, **kwargs):
 
-    message = search_address = search = None
+    message = search_address = search = point_location = None
 
     user = User.objects.get(pk=user_id)
 
@@ -106,11 +106,11 @@ def user_location(request, user_id, *args, **kwargs):
         'message': message,
         'search_address': search_address,
         'search': search,
-        'form': MyGeoForm(request.POST or None),
+        'form': LocationForm(initial={'location': point_location if point_location else user.location}), # (request.POST or None),
 
     })
 
-def set_user_location(request, user_id):
+def set_user_location(request, user_id, *args, **kwargs):
 
     user = User.objects.get(pk=user_id)
 
@@ -118,11 +118,31 @@ def set_user_location(request, user_id):
     location = geolocator.geocode(request.POST["search"])
 
     point_location = Point(location.longitude, location.latitude, srid=4326)
-
     user.location = point_location
-
     user.address = location.address
 
     user.save()
+
+    return HttpResponseRedirect(reverse('users:index', args=(user.id,)))
+
+def set_user_map_location(request, user_id, *args, **kwargs):
+
+    user = User.objects.get(pk=user_id)
+
+    form = LocationForm(request.POST)
+
+    if form.is_valid():
+
+        point = form.cleaned_data.get('location') # point.x = is longitude | point.y is latitude
+
+        geolocator = Nominatim(user_agent="users")
+
+        location = geolocator.reverse(f"{point.y}, {point.x}") #("52.509669, 13.376294")
+
+        user.location = Point(location.longitude, location.latitude, srid=4326)
+        user.address = location.address
+
+        user.save()
+
 
     return HttpResponseRedirect(reverse('users:index', args=(user.id,)))
