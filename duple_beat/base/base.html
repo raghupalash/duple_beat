@@ -12,81 +12,107 @@
             {% block title %}
             {% endblock %}
         </title>
-
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet" media="all">
+        
         <link rel="icon" href="{% static 'images/logo.png' %}" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/f042eae6e8.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery is required -->
+        <script src="{% static 'js/cropper.js' %}"></script> <!-- Cropper.js is required -->
+        <script src="{% static 'js/jquery-cropper.js' %}"></script>
+        
+        <link  href="{% static 'css/cropper.css' %}" rel="stylesheet">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" media="all">
         {% block head %}
         {% endblock %}
     
     </head>
-    <body>
-        <div class="d-flex">
-            <div class="drawer container mt-1">
-                <div class="row">
-                    <div class="card mx-2 w-100 shadow mb-1 border-0" style="border-radius: 15px 15px 0px 0px;">
-                        <articlel class="card-group-item">
-                            <header class="d-flex justify-content-center">
-                                <a class="navbar-brand" href="#">
-                                    <img src="{% static 'images/logo_small.png' %}"/>
-                                </a>
-                            </header>
-                            <div class="filter-content">
-                                <div class="card-body d-flex justify-content-start">
-                                    <div class="menulist">
-                                        <li class="my-2">
-                                            <div>
-                                                <a><img src="{% static 'images/icons/home.svg' %}"/></a>
-                                                <span class="font-weight-bold" style="font-size: 1.5em;">Home</span>
-                                            </div>
-                                        </li>
-                                        <li class="my-2">
-                                            <div>
-                                                <a><img src="{% static 'images/icons/explore.svg' %}"/></a>
-                                                <span class="font-weight-bold" style="font-size: 1.5em;">Explore</span>
-                                            </div>
-                                        </li>
-                                        <li class="my-2">
-                                            <div>
-                                                <a><img src="{% static 'images/icons/notifications.svg' %}"/></a>
-                                                <span class="font-weight-bold" style="font-size: 1.5em;">Notifications</span>
-                                            </div>
-                                        </li>
-                                        <li class="my-2">
-                                            <div>
-                                                <a><img src="{% static 'images/icons/more.svg' %}"/></a>
-                                                <span class="font-weight-bold" style="font-size: 1.5em;">More</span>
-                                            </div>
-                                        </li>
-                                        <!-- <li><img src="{% static 'images/icons/explore.svg' %}"/>Explore</li>
-                                        <li><img src="{% static 'images/icons/notifications.svg' %}"/>Notifications</li>
-                                        <li><img src="{% static 'images/icons/more.svg' %}"/>More</li> -->
-                                    </div>
-                                </div> <!-- card-body.// -->
-                            </div>
-                        </article> <!-- card-group-item.// -->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card mx-2 w-100 shadow border-0" style="display: flex; align-items: center; justify-content:center; border-radius: 0px 0px 15px 15px;">
-                        <article class="card-group-item">
-                            <header class="brand">
-                                <h6 class="title">Pending component...</h6>
-                            </header>
-                            <div class="filter-content">
-                                <div class="card-body">
-                                </div> <!-- card-body.// -->
-                            </div>
-                        </article> <!-- card-group-item.// -->
-                    </div>
-                </div>
-            </div>
+    <body style="color: rgb(209, 205, 199); background-color: rgb(24, 26, 27);">
+        <div class="side-left">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a class="menu-link active">
+                        <img id="duple" src="{% static 'images/logo.png' %}" alt="DupleBeat" style="width: 35px; margin-top: 10px;">
+                    </a>
+                </li>
 
-            <div class="container">
-                {% block content %}
-                {% endblock content %}
-            </div>
+                <li class="menu-item">
+                    <a class="menu-link">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                </li>
+                <li class="menu-item">
+                        <a class="menu-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                </li>
+                <li class="menu-item">
+                        <a class="menu-link">
+                            <i class="fas fa-bookmark"></i>
+                        </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link">
+                            <i class="fas fa-sticky-note"></i>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+
+                </li>
+        
+                {% if request.user.is_authenticated %}
+        
+                <li class="menu-item">
+                    <a class="menu-link add-twit" href="#">
+                        <img class="user-img-30" alt="Profile Picture" src="{{ request.user.image.url }}">
+                    </a>
+                
+                    <div class="box">
+                        <img src="{{ request.user.image.url }}" alt="Profile Picture" class="user-img-40">
+                        <p class="name">{{ request.user.name }}</p>
+                        <p class="username">@{{ request.user.username }}</p>
+                        <div class="bio">Front-end web developer</div>
+                        <div class="folow">
+                            <a href="#"><span>83</span> Following</a>
+                            <a href="#"><span>83</span> Followers</a>
+                        </div>
+                    </div>
+                </li>
+
+                {% endif %}
+            </ul>
         </div>
+
+        <nav class="navbar" style="background-color: rgb(28, 30, 31); margin-left: 96px; top: 0;">
+            <div class="d-flex"> <!-- mx-auto -->
+                <i style="display: inline-block; margin-top: 10px; margin-right: 10px;" class="fas fa-search"></i>
+                <form action="">
+                    <input style="display: inline-block; border-radius: 30px; color: rgb(181, 175, 166); background-color: rgb(24, 26, 27); border-color: rgb(60, 65, 68);" class="form-control" type="text" name="" id="" placeholder="Search">
+                </form>        
+            </div>
+        </nav>
+
+        <div class="side-main">
+            {% block main %}
+            {% endblock %}
+        </div>
+
+        <div class="side-right">
+            {% block right %}
+            {% endblock %}
+        </div>
+
+    </div>
     </body>
 </html>

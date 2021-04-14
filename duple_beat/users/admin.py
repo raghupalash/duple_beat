@@ -9,7 +9,7 @@ from .models import *
 from .labels import *
 
 class AccountAdmin(UserAdmin, OSMGeoAdmin): # LeafletGeoAdmin || OSMGeoAdmin
-    list_display = ("email", "username", "date_joined", "last_login", "is_admin",)
+    list_display = ("id", "email", "username", "date_joined", "last_login", "is_admin",)
     search_fields = ("email", "username",)
     readonly_fields = ("date_joined", "last_login",)
     filter_horizontal = ("job", "instrument", "genre",)

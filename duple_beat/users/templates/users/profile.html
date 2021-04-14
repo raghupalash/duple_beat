@@ -1,157 +1,620 @@
 {% extends "base.html" %}
-  {% block content %}
-    <div class="container">
-      <div class="main-body">
-      
-            <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="main-breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-              </ol>
-            </nav>
-            <!-- /Breadcrumb -->
-      
-            <div> <!-- <div class="row gutters-sm"> -->
-              
-              <div class="col-md-8" style="float: left;">
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">{{ user.name }}</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ user.name }}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Email</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{user.email}}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Phone</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {% for phone in user.phones %}
-                          {{ phone }},
-                        {% endfor %}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Address</h6>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ user.address }}
-                        <a href="{% url 'users:user_location' user.id %}">Change Location</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="row gutters-sm">
-                  <div class="col-sm-6 mb-3">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                        <small>Web Design</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>Website Markup</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>One Page</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>Mobile Template</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>Backend API</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                  <!-- <div class="col-sm-6 mb-3">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                        <small>Web Design</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>Website Markup</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>One Page</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>Mobile Template</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small>Backend API</small>
-                        <div class="progress mb-3" style="height: 5px">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                </div>
-              </div>
-              <div class="col-md-4 mb-3" style="float: right;">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-column align-items-center text-center">
-                      <img src="{{ user.image.url }}" alt="Admin" class="rounded-circle" width="150">
-                      <div class="mt-3">
-                        <h4>{{ user.name }}</h4>
-                        <p class="text-secondary mb-1">{{ user.about }}</p>
-                        <!-- <p class="text-muted font-size-sm">Location</p>
-                        <button class="btn btn-primary">Follow</button>
-                        <button class="btn btn-outline-primary">Message</button> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card mt-3">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                      <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
-                      <span class="text-secondary">{{ user.website }}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                      <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
-                      <span class="text-secondary">@address</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                      <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram mr-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</h6>
-                      <span class="text-secondary">address</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                      <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
-                      <span class="text-secondary">address</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+{% load crispy_forms_tags %}
+{% load static %}
+{% load leaflet_tags %}
+
+{% block head %}
+
+<style>
+
+  #parentdiv {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    /* background-color: #ac5; */
+    border-radius: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 60px;
+  }
+
+  .div2 {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    /* background-color: grey; */
+    /* border-radius: 100px; */
+  }
+
+  .div2:hover {
+    /* -webkit-filter: drop-shadow(5px 5px 5px red); */
+    filter: drop-shadow(0px 0px 10px red) drop-shadow(0px 0px 10px red) drop-shadow(0px 0px 5px red);
+    cursor: pointer;
+  }
+
+  .modal {
+    visibility: hidden;
+    display: block;
+  }
+
+  .modal[role="dialog"] {
+    visibility: visible;
+    display: block;
+  }
+
+  .image {
+	  opacity: 1;
+	  transition: .5s ease;
+	  backface-visibility: hidden;
+	}
+
+  .middle {
+	  transition: .5s ease;
+	  opacity: 0;
+	  position: absolute;
+	  text-align: center;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);	
+	}
+
+  .image-group{
+		position: relative;
+  		text-align: center;
+  		cursor:pointer;
+	}
+
+  .image-group:hover {
+	  opacity: 0.8;
+	}
+
+	.image-group:hover .middle {
+	  opacity: 1;
+	}
+
+  .image2 {
+	  opacity: 1;
+	  transition: .5s ease;
+	  backface-visibility: hidden;
+	}
+
+  .middle2 {
+	  transition: .5s ease;
+	  opacity: 0;
+	  position: absolute;
+	  text-align: center;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);	
+	}
+
+  .image-group2 {
+		position: relative;
+  		text-align: center;
+  		cursor:pointer;
+	}
+
+  .image-group2:hover {
+	  opacity: 0.8;
+	}
+
+	.image-group2:hover .middle2 {
+	  opacity: 1;
+	}
+
+  .cropper-face {
+    background-color: transparent !important;
+  }
+
+
+</style>
+
+{% if modal %}
+  <script>
+    $(document).ready(function(){
+        $("#exampleModal").modal('show');
+    });
+  </script>
+{% endif %}
+
+<script>
+    $(function () {
+
+      /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+      $("#id_file").change(function () {
+        if (this.files && this.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#image").attr("src", e.target.result);
+            $("#modalCrop").modal("show");
+          }
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+
+      /* SCRIPTS TO HANDLE THE CROPPER BOX */
+      var $image = $("#image");
+      var cropBoxData;
+      var canvasData;
+      $("#modalCrop").on("shown.bs.modal", function () {
+        $image.cropper({
+          viewMode: 1,
+          aspectRatio: 1/1,
+          maxCropBoxWidth: 500,
+          maxCropBoxHeight: 500,
+          ready: function () {
+            $image.cropper("setCanvasData", canvasData);
+            $image.cropper("setCropBoxData", cropBoxData);
+          }
+        });
+      }).on("hidden.bs.modal", function () {
+        cropBoxData = $image.cropper("getCropBoxData");
+        canvasData = $image.cropper("getCanvasData");
+        $image.cropper("destroy");
+      });
+
+      $(".js-zoom-in").click(function () {
+        $image.cropper("zoom", 0.1);
+      });
+
+      $(".js-zoom-out").click(function () {
+        $image.cropper("zoom", -0.1);
+      });
+
+      /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+      $(".js-crop-and-upload").click(function () {
+        var cropData = $image.cropper("getData");
+        $("#id_x").val(cropData["x"]);
+        $("#id_y").val(cropData["y"]);
+        $("#id_height").val(cropData["height"]);
+        $("#id_width").val(cropData["width"]);
+        $("#formUpload").submit();
+        console.log("HI");
+      });
+
+    });
+</script>
+
+
+
+  {% leaflet_js plugins="forms" %}
+  {% leaflet_css plugins="forms" %}
+
+  {{ form.media }}
+
+{% endblock %}
+
+{% block main %}
+            
+    <div class="container" style="max-width: 100%;">
+      <div class="row" id="profile-mobile" style="text-align: center;">
+        <h4>{{ user.name }}
+          {% if request.user == user %}
+            <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalProfile">
+              Edit Profile
+            </button>
+          {% endif %}  
+        </h4>       
       </div>
-  {% endblock content %}
+      <br>
+      <div class="row" id="profile-mobile"> 
+        <div width="100%" id="parentdiv" class="d-flex flex-column align-items-center text-center">
+
+          <div class="image-group2">
+            <img id="image2" src="{{ user.image.url }}" alt="Admin" class="rounded-circle" style="width: 175px; margin-top: -15px;">
+            {% if request.user == user %}
+            <div class="middle2">
+              <i id="id_image_group2" class="fas fa-camera" style="color: black; font-size: xxx-large;"></i>
+            </div>
+            {% endif %}
+          </div>
+          <form action="{% url 'users:profile_photo' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data" id="formUpload">
+            {% csrf_token %}
+            <input type="hidden" name="x" id="id_x" value="">
+            <input type="hidden" name="y" id="id_y" value="">
+            <input type="hidden" name="h" id="id_height" value="">
+            <input type="hidden" name="w" id="id_width" value="">
+            <input type="file" name="image" id="id_file" accept="image/*" style="display: none;">
+          </form>
+
+          <a href="https://www.tiktok.com/@{{ user.tiktok }}" target=”_blank”>
+            <img src="{% static 'images/tiktok.webp' %}" class="div2" style="position: absolute; top: 119.656px; left: 143.992px;">      
+          </a>
+    
+          <a href="{{ user.website }}" target=”_blank”>
+            <img src="{% static 'images/website.webp' %}" class="div2" style="position: absolute; top: 159.616px; left: 88.9919px;">
+          </a>
+          <a href="https://www.youtube.com/channel/{{ user.youtube }}" target=”_blank”>
+            <img src="{% static 'images/youtube.webp' %}" class="div2" style="position: absolute; top: 159.616px; left: 21.0081px;">
+          </a>
+          
+          <a href="https://www.soundcloud.com/{{ user.soundcloud }}" target=”_blank”>
+            <img src="{% static 'images/soundcloud.webp' %}" class="div2" style="position: absolute; top: 119.656px; left: -33.9919px; height: 20px; width: 40px;">
+          </a>
+    
+          <a href="https://open.spotify.com/artist/{{ user.spotify }}" target=”_blank”>
+            <img src="{% static 'images/spotify.webp' %}" class="div2" style="position: absolute; top: 55px; left: -55px;">
+          </a>
+    
+          <a href="https://www.tidal.com/browse/artist/{{ user.tidal }}" target=”_blank”>
+            <img src="{% static 'images/tidal.webp' %}" class="div2" style="position: absolute; top: -9.65638px; left: -33.9919px;">
+          </a>
+    
+          <a href="https://www.deezer.com/artist/{{ user.deezer }}" target=”_blank”>
+            <img src="{% static 'images/deezer.webp' %}" class="div2" style="position: absolute; top: -49.6162px; left: 21.0081px;">
+          </a>
+    
+          <a href="https://www.instagram.com/{{ user.instagram }}" target=”_blank”>
+            <img src="{% static 'images/instagram.webp' %}" class="div2" style="position: absolute; top: -49.6162px; left: 88.9919px;">
+          </a>
+    
+          <a href="https://www.twitter.com/{{ user.twitter }}" target=”_blank”>
+            <img src="{% static 'images/twitter.webp' %}" class="div2" style="position: absolute; top: -9.65638px; left: 143.992px;">
+          </a>
+    
+          <a href="https://www.facebook.com/{{ user.facebook }}" target=”_blank”>
+            <img src="{% static 'images/facebook.webp' %}" class="div2" style="position: absolute; top: 55px; left: 165px;">
+          </a>  
+    
+        </div>
+        <div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" style="margin-left: auto; margin-right: auto;">
+              {% for genre in user.genre.all %}
+                <span class="badge badge-light text-dark" style="border-radius: 20px;font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 3px;">{{ genre }}</span>
+              {% endfor %}
+              <!-- <span class="text-secondary"></span> -->
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" style="margin-left: auto; margin-right: auto;">
+              {% for job in user.job.all %}
+                <span class="badge badge-danger text-dark" style="border-radius: 20px;font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 3px;">{{ job }}</span>
+              {% endfor %}
+              <!-- <span class="text-secondary"></span> -->
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" style="margin-left: auto; margin-right: auto;">
+              {% for instrument in user.instrument.all %}
+                <span class="badge badge-dark" style="border-radius: 20px;font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 3px;">{{ instrument }}</span>
+              {% endfor %}
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+              <h6 class="mb-0">Budget</h6>
+              <span style="color: rgb(158, 150, 137);">
+                {% if user.budget_from %}
+                From: {{ user.budget_from }}
+                {% endif %}
+                {% if user.budget_to %}
+                - Up to: {{ user.budget_to }}
+                {% endif %}
+              </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+              <h6 class="mb-0">Email</h6>
+              <span style="color: rgb(158, 150, 137);">{{ user.email }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+              <h6 class="mb-0">Phone</h6>
+              <span style="color: rgb(158, 150, 137);">
+                {% for phone in user.phones %}
+                  {{ phone }},
+                {% endfor %}
+              </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+              <h6 class="mb-0">Address </h6>
+              {% if request.user == user %}
+              <a style="color: crimson; margin-left: auto; margin-right: 10px;" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Change Location</a>
+              {% endif %}
+              <span style="color: rgb(158, 150, 137);">
+                {{ user.address }}
+              </span>
+              <h6 style="visibility: hidden;">Location</h6>
+                {{ map | safe }}
+                <!-- the safe filter allows to display the map -->
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+          {{ user.name |default_if_none:'' }} <br>
+          {{user.about |default_if_none:'' }}
+      </div>
+
+    </div>
+  </div>
+
+  {% endblock %}
+  
+  {% if request.user == user %}
+    <!-- MODAL TO EDIT PROFILE -->
+    <div class="modal fade" id="modalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen-md-down modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="background-color: rgb(24, 26, 27);">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"></button>
+          </div>
+          <div class="modal-body col-10" style="margin-left: auto; margin-right: auto;">
+
+            <!-- ------------ -->
+            <form action="{% url 'users:edit_user_detail_view' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input class="form-control" type="text" name="name" placeholder="Name" value="{{ user.name | default_if_none:'' }}" required> <br>
+              <textarea placeholder="About you..." class="form-control" name="about" cols="43" rows="7" maxlength="280" style="max-width: 100%;">{{ user.about|default_if_none:'' }}</textarea> <br>
+              {{ profileform | crispy }}
+              <label>Budget</label> <br>
+              <div style="display: inline-block;">
+                <label>From: </label>
+                <input style="display: inline-block; width: 200px;" class="form-control" type="number" name="from" placeholder="$" value="{{ user.budget_from|default_if_none:'0' }}">
+              </div>
+              
+              <div style="display: inline-block;">
+                <label>To: </label>
+                <input style="display: inline-block; width: 200px;" class="form-control" type="number" name="to" placeholder="$" value="{{ user.budget_to|default_if_none:'0' }}">  
+              </div>
+
+              <br> <br>
+              <label>Website:</label> <br>
+              <label>https:// </label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="website" placeholder="mywebsite.com" value="{{ user.website|default_if_none:'' }}">
+
+              <br> <br>
+              <label>instagram.com/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="instagram" placeholder="username" value="{{ user.instagram|default_if_none:'' }}">
+
+              <br> <br>
+              <label>twitter.com/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="twitter" placeholder="username" value="{{ user.twitter|default_if_none:'' }}">
+
+              <br> <br>
+              <label>facebook.com/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="facebook" placeholder="username" value="{{ user.facebook|default_if_none:'' }}">
+
+              <br> <br>
+              <label>tiktok.com/@</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="tiktok" placeholder="username" value="{{ user.tiktok|default_if_none:'' }}">
+
+              <br> <br>
+              <label>youtube.com/channel/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="youtube" placeholder="code" value="{{ user.youtube|default_if_none:'' }}">
+
+              <br> <br>
+              <label>soundcloud.com/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="soundcloud" placeholder="username" value="{{ user.soundcloud|default_if_none:'' }}">
+
+              <br> <br>
+              <label>open.spotify.com/artist/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="spotify" placeholder="code" value="{{ user.spotify|default_if_none:'' }}">
+
+              <br> <br>
+              <label>tidal.com/browse/artist/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="tidal" placeholder="code" value="{{ user.tidal|default_if_none:'' }}">
+
+              <br> <br>
+              <label>deezer.com/artist/</label>
+              <input style="display: inline-block; width: 200px;" class="form-control" type="text" name="deezer" placeholder="code" value="{{ user.deezer|default_if_none:'' }}">
+              <br> <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-outline-light js-crop-and-upload">Save</button>
+              </div>
+
+            </form>
+            <!-- ------------ -->
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL TO CROP THE IMAGE -->
+    <div class="modal fade" id="modalCrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen-md-down modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="background-color: rgb(24, 26, 27);">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Profile Image</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"></button>
+          </div>
+          <div class="modal-body col-10" style="margin-left: auto; margin-right: auto;">
+
+            <!-- ------------ -->
+            <img src="" id="image" style="max-width: 500px; max-height: 500px;">
+            <!-- ------------ -->
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-outline-light js-crop-and-upload">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal to change location -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen-md-down modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="background-color: rgb(24, 26, 27);">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Change Location</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"></button>
+          </div>
+          <div class="modal-body col-10" style="margin-left: auto; margin-right: auto;">
+
+            <!-- ------------ -->
+            <form style="text-align: center;" action="{% url 'users:index' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+              {% csrf_token %}
+              <lable style="font-weight: bold;">Address / Place Name:</lable>
+              <input style="border-radius: 20px;" type="text" class="form-control" name="address" value="{{ search_address|default_if_none:'' }}" required>
+              <br>
+              <button type="submit" class="btn btn-secondary">Search</button>
+            </form>
+            <br>
+            <div style="width: 50%; float: left; margin-bottom: 20px;">
+              <h5>Your current location:</h5>
+              {{ user.address|default_if_none:"" }}
+            </div>
+            <div style="width: 50%; float: right;">
+              <h5>Your searched location:</h5>
+                <h6 style="color: steelblue;">{{ search_address|default_if_none:"" }}</h6>
+            </div>
+            <span style="color: crimson; font-weight: bold;">{{ message|default_if_none:"" }}</span>
+            <form id="mymapform" style="text-align: center;" action="{% url 'users:set_user_location' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input id="decision" type="hidden" name="decision" value="0">
+                <input type="hidden" name="search" value="{{ search }}">
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-outline-light" onclick="document.querySelector('#decision').value = '1'">Set map location</button>
+                  <button type="submit" class="btn btn-outline-light">Set searched location</button>
+                </div>
+    
+            </form>
+            
+            <!-- ------------ -->
+
+          </div>
+        </div>
+      </div>
+    
+{% endif %}
+
+{% block right %}
+      
+    <h4 style="text-align: center;">
+      {{ user.name }}
+      {% if request.user == user %}
+        <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalProfile">
+          Edit Profile
+        </button>
+      {% endif %}  
+    </h4> <br>
+    <div width="100%" id="parentdiv" class="d-flex flex-column align-items-center text-center">
+      
+      <div class="image-group">
+        <img id="image" src="{{ user.image.url }}" alt="Admin" class="rounded-circle" style="width: 175px; margin-top: -15px;">
+        {% if request.user == user %}
+        <div class="middle">
+          <i id="id_image_group" class="fas fa-camera" style="color: black; font-size: xxx-large;"></i>
+        </div>
+        {% endif %}
+      </div>
+      <form action="{% url 'users:profile_photo' user.id %}" method="POST" autocomplete="off" enctype="multipart/form-data" id="formUpload">
+        {% csrf_token %}
+        <input type="hidden" name="x" id="id_x" value="">
+        <input type="hidden" name="y" id="id_y" value="">
+        <input type="hidden" name="h" id="id_height" value="">
+        <input type="hidden" name="w" id="id_width" value="">
+        <input type="file" name="image" id="id_file" accept="image/*" style="display: none;">
+      </form>
+      
+      <a href="https://www.tiktok.com/@{{ user.tiktok }}" target=”_blank”>
+        <img src="{% static 'images/tiktok.webp' %}" class="div2" style="position: absolute; top: 119.656px; left: 143.992px;">      
+      </a>
+
+      <a href="https://{{ user.website }}" target=”_blank”>
+        <img src="{% static 'images/website.webp' %}" class="div2" style="position: absolute; top: 159.616px; left: 88.9919px;">
+      </a>
+      <a href="https://www.youtube.com/channel/{{ user.youtube }}" target=”_blank”>
+        <img src="{% static 'images/youtube.webp' %}" class="div2" style="position: absolute; top: 159.616px; left: 21.0081px;">
+      </a>
+      
+      <a href="https://www.soundcloud.com/{{ user.soundcloud }}" target=”_blank”>
+        <img src="{% static 'images/soundcloud.webp' %}" class="div2" style="position: absolute; top: 119.656px; left: -33.9919px; height: 20px; width: 40px;">
+      </a>
+
+      <a href="https://open.spotify.com/artist/{{ user.spotify }}" target=”_blank”>
+        <img src="{% static 'images/spotify.webp' %}" class="div2" style="position: absolute; top: 55px; left: -55px;">
+      </a>
+
+      <a href="https://www.tidal.com/browse/artist/{{ user.tidal }}" target=”_blank”>
+        <img src="{% static 'images/tidal.webp' %}" class="div2" style="position: absolute; top: -9.65638px; left: -33.9919px;">
+      </a>
+
+      <a href="https://www.deezer.com/artist/{{ user.deezer }}" target=”_blank”>
+        <img src="{% static 'images/deezer.webp' %}" class="div2" style="position: absolute; top: -49.6162px; left: 21.0081px;">
+      </a>
+
+      <a href="https://www.instagram.com/{{ user.instagram }}" target=”_blank”>
+        <img src="{% static 'images/instagram.webp' %}" class="div2" style="position: absolute; top: -49.6162px; left: 88.9919px;">
+      </a>
+
+      <a href="https://www.twitter.com/{{ user.twitter }}" target=”_blank”>
+        <img src="{% static 'images/twitter.webp' %}" class="div2" style="position: absolute; top: -9.65638px; left: 143.992px;">
+      </a>
+
+      <a href="https://www.facebook.com/{{ user.facebook }}" target=”_blank”>
+        <img src="{% static 'images/facebook.webp' %}" class="div2" style="position: absolute; top: 55px; left: 165px;">
+      </a>  
+    </div>
+
+    <div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" style="margin-left: auto; margin-right: auto;">
+          {% for genre in user.genre.all %}
+            <span class="badge badge-light text-dark" style="border-radius: 20px;font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 3px;">{{ genre }}</span>
+          {% endfor %}
+          <!-- <span class="text-secondary"></span> -->
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" style="margin-left: auto; margin-right: auto;">
+          {% for job in user.job.all %}
+            <span class="badge badge-danger text-dark" style="border-radius: 20px;font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 3px;">{{ job }}</span>
+          {% endfor %}
+          <!-- <span class="text-secondary"></span> -->
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" style="margin-left: auto; margin-right: auto;">
+          {% for instrument in user.instrument.all %}
+            <span class="badge badge-dark" style="border-radius: 20px;font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 3px;">{{ instrument }}</span>
+          {% endfor %}
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <h6 class="mb-0">Budget</h6>
+          <span style="color: rgb(158, 150, 137);">
+            {% if user.budget_from %}
+            From: $ {{ user.budget_from }}
+            {% endif %}
+            {% if user.budget_to %}
+            - Up to: $ {{ user.budget_to }}
+            {% endif %}
+          </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <h6 class="mb-0">Email</h6>
+          <span style="color: rgb(158, 150, 137);">{{ user.email }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <h6 class="mb-0">Phone</h6>
+          <span style="color: rgb(158, 150, 137);">
+            {% for phone in user.phones %}
+              {{ phone }},
+            {% endfor %}
+          </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <h6 class="mb-0">Address </h6>
+          {% if request.user == user %}
+          <a style="color: crimson; margin-left: auto;  margin-right: 10px;" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Change Location</a>
+          {% endif %}
+          <span style="color: rgb(158, 150, 137);">
+            {{ user.address }}
+          </span>
+          <h6 style="display: none;">Location</h6>
+            {{ map | safe }}
+            <!-- the safe filter allows to display the map -->
+        </li>
+      </ul>
+    </div>
+
+  <script>
+    document.querySelector('#id_image_group').onclick = function(event){
+    	document.querySelector('#id_file').click();
+    };
+
+    document.querySelector('#id_image_group2').onclick = function(event){
+    	document.querySelector('#id_file').click();
+    };
+  </script>
+
+{% endblock %}
