@@ -323,8 +323,6 @@
     </div>
   </div>
 
-  {% endblock %}
-  
   {% if request.user == user %}
     <!-- MODAL TO EDIT PROFILE -->
     <div class="modal fade" id="modalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -481,8 +479,12 @@
     
 {% endif %}
 
+{% endblock %}
+  
+  
+
 {% block right %}
-      
+        
     <h4 style="text-align: center;">
       {{ user.name }}
       {% if request.user == user %}
