@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>
+            DupleBeat 
+            {% block title %}
+            {% endblock %}
+        </title>
+        
+        <link rel="icon" href="{% static 'images/logo.png' %}" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/f042eae6e8.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery is required -->
+        <script src="{% static 'js/cropper.js' %}"></script> <!-- Cropper.js is required -->
+        <script src="{% static 'js/jquery-cropper.js' %}"></script>
+        
+        <link  href="{% static 'css/cropper.css' %}" rel="stylesheet">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" media="all">
+        {% block head %}
+        {% endblock %}
+    
+    </head>
+    <body style="color: rgb(209, 205, 199); background-color: rgb(24, 26, 27);">
+        <div class="side-left">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a class="menu-link active">
+                        <img id="duple" src="{% static 'images/logo.png' %}" alt="DupleBeat" style="width: 35px; margin-top: 10px;">
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                </li>
+                <li class="menu-item">
+                        <a class="menu-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                </li>
+                <li class="menu-item">
+                        <a class="menu-link">
+                            <i class="fas fa-bookmark"></i>
+                        </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link">
+                            <i class="fas fa-sticky-note"></i>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+
+                </li>
+        
+                {% if request.user.is_authenticated %}
+        
+                <li class="menu-item">
+                    <a class="menu-link add-twit" href="#">
+                        <img class="user-img-30" alt="Profile Picture" src="{{ request.user.image.url }}">
+                    </a>
+                
+                    <div class="box">
+                        <img src="{{ request.user.image.url }}" alt="Profile Picture" class="user-img-40">
+                        <p class="name">{{ request.user.name }}</p>
+                        <p class="username">@{{ request.user.username }}</p>
+                        <div class="bio">Front-end web developer</div>
+                        <div class="folow">
+                            <a href="#"><span>83</span> Following</a>
+                            <a href="#"><span>83</span> Followers</a>
+                        </div>
+                    </div>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+
+        <nav class="navbar" style="background-color: rgb(28, 30, 31); margin-left: 96px; top: 0;">
+            <div class="d-flex"> <!-- mx-auto -->
+                <i style="display: inline-block; margin-top: 10px; margin-right: 10px;" class="fas fa-search"></i>
+                <form action="">
+                    <input style="display: inline-block; border-radius: 30px; color: rgb(181, 175, 166); background-color: rgb(24, 26, 27); border-color: rgb(60, 65, 68);" class="form-control" type="text" name="" id="" placeholder="Search">
+                </form>        
+            </div>
+        </nav>
+
+        <div class="side-main">
+            {% block main %}
+            {% endblock %}
+        </div>
+
+        <div class="side-right">
+            {% block right %}
+            {% endblock %}
+        </div>
+
+    </div>
+    </body>
+</html>

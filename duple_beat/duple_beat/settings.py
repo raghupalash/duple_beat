@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms'
+    
+    'django.contrib.gis',
+    'leaflet',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +67,7 @@ ROOT_URLCONF = 'duple_beat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR / 'base/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,23 +87,26 @@ AUTH_USER_MODEL = "users.User"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': '',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': '',
-# 	'USER': '',
-# 	'PASSWORD': config.get('DBPASSWORD'),
-# 	'HOST': 'localhost',
-# 	'PORT': '',
-#     }
-# }
+GDAL_LIBRARY_PATH = r'C:\OSGeo4W64\bin\gdal301'
+GEOS_LIBRARY_PATH= r'C:\OSGeo4W64\bin\geos_c.dll'
 
 
 # Password validation
@@ -141,9 +147,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR / "base/static/")
+]
 
 # AUTHENTICATION (LOGIN)
 AUTHENTICATION_BACKENDS = ('users.backends.AuthBackend',)
 
 # CRISPY
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# LEAFLET
+LEAFLET_CONFIG = { # ZOOM: 1 - 24
+#     'DEFAULT_CENTER': (-.023, 36.87),
+    # 'DEFAULT_ZOOM': 10,
+    'MAX_ZOOM': 20,
+    'MIN_ZOOM': 3,
+#     'SCALE': 'imperial', # ( miles , feets ) // 'both' ( miles and kms )
+    'ATTRIBUTION_PREFIX': 'DupleBeat',
+}

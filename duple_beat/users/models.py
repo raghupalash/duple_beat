@@ -1,11 +1,17 @@
 #django imports
 
-from django.db import models
+# from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from django.contrib.gis.db import models
+
+#third party imports 
+# from django_resized import ResizedImageField
+from PIL import Image
 
 #internal imports
 from .labels import *
@@ -52,13 +58,27 @@ class User(AbstractBaseUser):
     phones = models.JSONField(default=list, null=True, blank=True)
     website = models.URLField(blank=True, null=True)
     about = models.CharField(max_length=280, blank=True, null=True)
-    
+    location = models.PointField(blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
 
     # additional info
     genre = models.ManyToManyField(Genre, related_name='users')
     job = models.ManyToManyField(Job, blank=True, related_name="users")
     instrument = models.ManyToManyField(Instrument, blank=True, related_name="users")
-    budget = models.JSONField(default=list, validators=[validate_budget])
+    # budget = models.JSONField(default=list, validators=[validate_budget])
+    budget_from = models.BigIntegerField(null=True)
+    budget_to = models.BigIntegerField(null=True)
+
+    # Social Media
+    instagram = models.CharField(max_length=60, blank=True, null=True)
+    twitter = models.CharField(max_length=60, blank=True, null=True)
+    facebook = models.CharField(max_length=60, blank=True, null=True)
+    tiktok = models.CharField(max_length=60, blank=True, null=True)
+    youtube = models.CharField(max_length=60, blank=True, null=True)
+    soundcloud = models.CharField(max_length=60, blank=True, null=True)
+    spotify = models.CharField(max_length=60, blank=True, null=True)
+    tidal = models.CharField(max_length=60, blank=True, null=True)
+    deezer = models.CharField(max_length=60, blank=True, null=True)
 
     # REQUIRED
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -87,6 +107,26 @@ class User(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+        # if self.image:
+        #     img = Image.open(self.image.path)
+
+        #     if img.height != img.width:
+        #         size = abs(img.height - img.width) // 2
+
+        #         if img.height > img.width:
+        #             area = (0, size, (img.height - (2 * size)), img.height - size)
+                    
+        #         else:
+        #             area = (size, 0, img.width - size, (img.width - (2 * size)))
+                
+        #         crop = img.crop(area)
+        #         crop.save(self.image.path)
+            
+        #     if self.image.size > 5485760: # 5MB
+        #         self.image.delete()
+        #         self.image = 'default-profile.png'
+        #         self.save()
 
 #Sets default job name for user when created or when user deletes job
 def SetDefaultName(sender, instance, created, **kwargs):

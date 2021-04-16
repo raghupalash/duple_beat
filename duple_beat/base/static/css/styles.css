@@ -1,0 +1,309 @@
+/* Sets the width of drawer container */
+.drawer{
+    width: 30% !important;
+}
+
+.row{
+    height: 50%;
+}
+/* In order to get rid of bullet points in list of itens - drawer */
+.menulist li{
+    list-style-type: none;
+}
+
+
+/* 
+Not necessary anymore
+.drawerupbody{
+    display: flex;
+    align-items: left;
+    justify-content: left;
+} */
+
+/* Sets display of drawer to none when screen width is less than 1024px */
+/* @media screen and (max-width: 1024px) {
+ .drawer{
+     display: none !important;
+ }   
+} */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+h6 {
+    color: lightgrey;
+}
+
+
+/******* LEFT SIDE ********/
+.side-left {
+    border-right: 1px solid rgb(28, 30, 31);
+    position: fixed;
+    height: 100%;
+    /* width: 5%; */
+    /* text-align: right; */
+    z-index: 1000;
+    display: inline-block;
+    background-color: rgb(28, 30, 31);
+}
+
+/***************/
+
+.menu .menu-item {
+    padding: 0px 20px;
+    margin-bottom: 0px;
+}
+.menu .menu-item .menu-link {
+    width: 55px;
+    height: 55px;
+    display: block;
+    text-align: center;
+    border-radius: 50%;
+    margin-left: -32px;
+}
+.menu .menu-item .menu-link:hover {
+    background-color: transparent; /* Here */
+    text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red, 0 0 80px red;
+    cursor: pointer;
+
+}
+.menu .menu-item .menu-link:hover i {
+    /* color: white; Here */
+    text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red, 0 0 80px red;
+}
+.menu .menu-item .menu-link:hover.box {
+    display: block !important;
+}
+.menu .menu-item .menu-link i {
+    color: white;
+    font-size: 25px;
+    /* font-size: 1.5vw; */
+    line-height: 55px;
+}
+
+
+.menu .menu-item .menu-link.active i {
+    color: #88001b;
+}
+.menu .menu-item .box {
+    display: none;
+    padding: 20px;
+    position: absolute;
+    box-shadow: 0px 0px 10px red;
+    background-color: rgb(24, 26, 27);
+    margin-top: -240px;
+    margin-left: 20px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: left;
+    z-index: 9;
+}
+.menu .menu-item .box .name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+.menu .menu-item .box .username {
+    color: #999;
+}
+.menu .menu-item .box .bio {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.menu .menu-item .box .folow {
+    display: flex;
+}
+.menu .menu-item .box .folow a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #999;
+}
+.menu .menu-item .box .folow a span {
+    color: rgb(232, 230, 227) !important;
+    font-weight: 600;
+}
+.menu .menu-item:hover .user-img-30 {
+    border: 2px solid #88001b; /* Here */ 
+}
+.menu .menu-item:hover .box {
+    display: block;
+}
+
+.user-img-30 {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-top: 5px;
+    border: 2px solid #fff;
+}
+
+.user-img-40 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.add-twit {
+    background-color: #88001b; /* Here */
+    margin-top: 20px;
+}
+.add-twit i {
+    color: #fff !important;
+}
+.add-twit:hover {
+    /* background-color: #88001b !important; */
+    text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red, 0 0 80px red;
+}
+
+/******* MAIN SIDE ********/
+
+.side-main {
+    border-right: 1px solid rgb(24, 26, 27);
+    position: absolute;
+    max-width: 69%;
+    height: 94%;
+    margin-left: 96px;
+    background-color: rgb(24, 26, 27);
+    z-index: 0;
+    overflow: hidden;
+    padding: 10px 5px;
+    overflow-y:scroll;
+}
+.side-main .link-home {
+    font-weight: 500;
+    color: #000;
+    font-size: 20px;
+}
+.side-main .write-twit {
+    margin-top: 60px;
+    padding: 20px 10px;
+    display: flex;
+    background-color: #fff;
+}
+.side-main .write-twit img {
+    margin-bottom: 20px;
+}
+.side-main .write-twit textarea {
+    border: 0;
+    color: #999;
+    padding: 10px;
+    width: 100%;
+    font-size: 20px;
+    outline: 0 none;
+}
+
+.top-fixed {
+    position: fixed;
+    top: 0;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    padding: 20px 10px;
+    height: 60px;
+    width: 50%;
+    background-color: #fff;
+}
+
+/************** RIGHT SIDE ************/
+.side-right {
+    width: 25%;
+    height: 100%;
+    border-left: 1px solid rgb(24, 26, 27);
+    padding: 10px 5px;
+    right: 0;
+    position: fixed;
+    background-color: rgb(24, 26, 27);
+    overflow-y: scroll;
+}
+
+.search-form {
+    background-color: #eee;
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: 339*px;
+}
+.search-form input {
+    border: 0;
+    background-color: #eee;
+    color: #999;
+    font-size: 14px;
+}
+.search-form i {
+    color: #999;
+}
+
+span:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.form-control:focus {
+    border-color: red;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px red;
+}
+
+.list-group-item {
+    background-color: rgb(24, 26, 27);
+    border-color: rgba(140, 130, 115, 0.13);
+}
+
+#duple:hover {
+    /* -webkit-filter: grayscale(100%); Safari 6.0 - 9.0 */
+    /* filter: grayscale(100%); */
+    /* filter: drop-shadow(0px 0px 10px darkred); */
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
+.col-sm {
+    width: 80% !important;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+@media screen and (max-width: 1235px) {
+    .side-right {
+        display: none;
+    }
+    .side-main {
+        max-width: 100%;
+    }
+    #profile-mobile {
+        display: block;
+    }
+
+}
+@media screen and (min-width: 1235px) {
+    #profile-mobile {
+        display: none;
+    }
+
+}
+
+::-webkit-scrollbar {
+    /* width: 0; */ 
+    background: transparent; 
+}
+
+::selection {
+    color: white;
+    background: darkred;
+}

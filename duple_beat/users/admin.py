@@ -1,10 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+
+# Maps
+from django.contrib.gis.admin import OSMGeoAdmin
+from leaflet.admin import LeafletGeoAdmin
+
 from .models import *
 from .labels import *
 
-class AccountAdmin(UserAdmin):
-    list_display = ("email", "username", "date_joined", "last_login", "is_admin",)
+class AccountAdmin(UserAdmin, LeafletGeoAdmin): # LeafletGeoAdmin || OSMGeoAdmin
+    list_display = ("id", "email", "username", "date_joined", "last_login", "is_admin",)
     search_fields = ("email", "username",)
     readonly_fields = ("date_joined", "last_login",)
     filter_horizontal = ("job", "instrument", "genre",)
