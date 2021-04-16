@@ -8,7 +8,7 @@ from leaflet.admin import LeafletGeoAdmin
 from .models import *
 from .labels import *
 
-class AccountAdmin(UserAdmin, OSMGeoAdmin): # LeafletGeoAdmin || OSMGeoAdmin
+class AccountAdmin(UserAdmin, LeafletGeoAdmin): # LeafletGeoAdmin || OSMGeoAdmin
     list_display = ("id", "email", "username", "date_joined", "last_login", "is_admin",)
     search_fields = ("email", "username",)
     readonly_fields = ("date_joined", "last_login",)

@@ -97,9 +97,9 @@ AUTH_USER_MODEL = "users.User"
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'duple',
+        'NAME': '',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
